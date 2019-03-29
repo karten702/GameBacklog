@@ -124,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
                 gamesList.remove(position);
                 adapter.notifyItemRemoved(position);
 
-                Snackbar undoBar = Snackbar.make(viewHolder.itemView, "Deleted: " + storeGame.getTitle(), Snackbar.LENGTH_LONG);
-                undoBar.setAction("Undo", new View.OnClickListener() {
+                Snackbar undoBar = Snackbar.make(viewHolder.itemView, R.string.deletedSingleMessage + storeGame.getTitle(), Snackbar.LENGTH_LONG);
+                undoBar.setAction(R.string.undoText, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mainViewModel.insert(storeGame);
@@ -174,8 +174,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
 
             mainViewModel.deleteAll(gamesListing);
 
-            Snackbar undoBar = Snackbar.make(gamesRecyclerView, "Deleted all games", Snackbar.LENGTH_LONG);
-            undoBar.setAction("Undo", new View.OnClickListener() {
+            Snackbar undoBar = Snackbar.make(gamesRecyclerView, R.string.deletedAllMessage, Snackbar.LENGTH_LONG);
+            undoBar.setAction(R.string.undoText, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mainViewModel.insertAll(tempGamesList);

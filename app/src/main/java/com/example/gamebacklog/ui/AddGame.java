@@ -61,35 +61,31 @@ public class AddGame extends AppCompatActivity {
                 String platformText = platform.getText().toString();
                 String statusText = statusSelection.getSelectedItem().toString();
 
-                if (game != null) {
-                    if (!TextUtils.isEmpty(titleText) && !TextUtils.isEmpty(platformText)) {
+                if (!TextUtils.isEmpty(titleText) && !TextUtils.isEmpty(platformText)) {
+                    if (game != null){
                         game.setTitle(titleText);
                         game.setPlatform(platformText);
                         game.setStatus(statusText);
 
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra(MainActivity.UPDATE_GAME, game);
-                        setResult(Activity.RESULT_OK, resultIntent);
-                        finish();
+                        FinishActivity(MainActivity.UPDATE_GAME, game);
                     }
-                    else
-                        Snackbar.make(view, "One of the fields is empty!", Snackbar.LENGTH_LONG).show();
-                }
-                else {
-
-                    if (!TextUtils.isEmpty(titleText) && !TextUtils.isEmpty(platformText)) {
+                    else{
                         game = new Game(titleText, platformText, statusText);
 
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra(MainActivity.NEW_GAME, game);
-                        setResult(Activity.RESULT_OK, resultIntent);
-                        finish();
+                        FinishActivity(MainActivity.NEW_GAME, game);
                     }
-                    else
-                        Snackbar.make(view, "One of the fields is empty!", Snackbar.LENGTH_LONG).show();
+
                 }
+                else
+                    Snackbar.make(view, R.string.emptyTextfieldMessage, Snackbar.LENGTH_LONG).show();
             }
         });
     }
 
+    public void FinishActivity(String activityType, Game someGame){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(activityType, someGame);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
+    }
 }
